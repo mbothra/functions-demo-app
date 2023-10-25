@@ -66,6 +66,8 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 
     This will launch the pokemon app on your local server, usually at `http://localhost:3000/`.
 
+<img width="1723" alt="Screenshot 2023-10-25 at 8 16 09 AM" src="https://github.com/mbothra/functions-demo-app/assets/66191235/c50656d6-fead-4fb9-9dbc-be44fe97e39b">
+
 ## Usage
 
 1. Visit the deployed web app.
