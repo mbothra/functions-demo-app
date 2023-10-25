@@ -43,29 +43,28 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 
 3. **Set up Environment Variables**
 
-    Create a `.env` file in the root directory and add the necessary configurations.
+    Create a `.env` file in the backend directory and add the necessary configurations.
 
     ```plaintext
     PRIVATE_KEY=Your_Ethereum_Wallet_Private_Key
-    INFURA_API_KEY=Your_Infura_Key
-    CHAINLINK_NODE_URL=Your_Chainlink_Node_URL
+    POLYGONRPC_URL=Your_Infura_Key
     ```
 
 4. **Deploy the SmartContract**
 
-    ```bash
-    truffle migrate --network [desired-network]
+    ```npx hardhat functions-deploy-consumer --network polygonMumbai --subid 499 --verify true 
     ```
 
-    Remember to replace `[desired-network]` with the network you want to deploy to (e.g., `rinkeby`, `kovan`, `mainnet`).
+    Remember to create subscription through `Functions UI`.
 
 5. **Run the App Locally**
 
-    ```bash
-    npm start
+    Go to frontend/. Update contract address and subscription id and run
+    ```
+    npm run deb
     ```
 
-    This will launch the app on your local server, usually at `http://localhost:3000/`.
+    This will launch the pokemon app on your local server, usually at `http://localhost:3000/`.
 
 ## Usage
 
