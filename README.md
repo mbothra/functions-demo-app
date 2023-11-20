@@ -31,7 +31,7 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/[your-github-username]/pokemon-battle-smartcontract.git
+    git clone https://github.com/mbothra/functions-demo-app
     cd frontend
     ```
 
