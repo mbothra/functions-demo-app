@@ -1,4 +1,4 @@
-# Pokémon Battle SmartContract App with Chainlink Functions
+# WODL SmartContract App with Chainlink Functions
 
 Leverage the power of Chainlink Functions to battle Pokémon on the blockchain. This application allows users to select two Pokémon and initiate a battle via smart contracts.
 
