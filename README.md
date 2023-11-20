@@ -32,7 +32,7 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 
     ```bash
     git clone https://github.com/[your-github-username]/pokemon-battle-smartcontract.git
-    cd pokemon-battle-smartcontract
+    cd frontend
     ```
 
 2. **Install Dependencies**
@@ -41,30 +41,23 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
     npm install
     ```
 
-3. **Set up Environment Variables**
+3. **Set up Contract Address**
 
-    Create a `.env` file in the backend directory and add the necessary configurations.
+    Copy the contract and subscription address deployed through remix in frontend/constants.js fild.
 
     ```plaintext
-    PRIVATE_KEY=Your_Ethereum_Wallet_Private_Key
-    POLYGONRPC_URL=Your_Infura_Key
+    contractAddress=""
+    subscriptionID=""
     ```
 
-4. **Deploy the SmartContract**
+4. **Run the App Locally**
 
-    ```npx hardhat functions-deploy-consumer --network polygonMumbai --subid 499 --verify true 
+    Go to frontend/. Run
+    ```
+    npm run dev
     ```
 
-    Remember to create subscription through `Functions UI`.
-
-5. **Run the App Locally**
-
-    Go to frontend/. Update contract address and subscription id and run
-    ```
-    npm run deb
-    ```
-
-    This will launch the pokemon app on your local server, usually at `http://localhost:3000/`.
+    This will launch the WODL app on your local server, usually at `http://localhost:3000/`.
 
 ## Usage
 
@@ -77,7 +70,7 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 
 ## Contributing
 
-Contributions, issues, and feature requests are welcome. Feel free to check [issues page](https://github.com/[your-github-username]/pokemon-battle-smartcontract/issues) if you want to contribute.
+Contributions, issues, and feature requests are welcome. Feel free to check [issues page] if you want to contribute.
 
 ## License
 
