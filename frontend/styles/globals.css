@@ -2,6 +2,9 @@
 @import './bootstrap.css';
 @import './animate.css';
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body {
@@ -12,8 +15,9 @@ body {
 	font-family: -apple-system, pokemon, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 	  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 	  height: 100%;
-	  overflow: hidden;
-	  font-family: pokemon;
+	  overflow-x: hidden; /* Prevent horizontal scroll */
+	  overflow-y: auto; /* Enable vertical scroll */
+		  font-family: pokemon;
   
 	/* background-color: rgb(253, 253, 253);		   */
 }
@@ -47,15 +51,7 @@ a {
     src: local(''), 
          url('../public/fonts/PokemonGB.ttf') format('truetype'),
 }
-
-body {
-	font-family: "Share Tech Mono", monospace; }
   
-  body,
-  html,
-  #root {
-	height: 150% !important;
-	 }
   
   h2 {
 	text-transform: uppercase;
@@ -274,4 +270,29 @@ body {
 		margin-right: 100px;
     	margin-top: 14px;
 	  }
+	  
+
+	  .board-container {
+		padding: 1rem 2.5rem; /* Adjust the padding as needed */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	  }
+	  
+	  .row-container {
+		display: flex; /* This makes the child elements (boxes) align horizontally */
+		gap: 0.25rem; /* This adds space between the boxes */
+	  }
+	  
+	  .message-container {
+		height: 2rem;
+		display: grid;
+		place-items: center;
+		font-weight: bold;
+		color: var(--text-color-dark); /* Replace with your color variable or value */
+		margin-top: 1rem;
+	  }
+	  
+	  /* Add your Box styles here if they are not already defined */
 	  

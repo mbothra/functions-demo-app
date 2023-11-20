@@ -1,73 +1,69 @@
-export const senderAbi = [
+export const abi = [
+	{
+		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
 	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "target",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "FailedToWithdrawEth",
+		"inputs": [],
+		"name": "EmptyArgs",
 		"type": "error"
 	},
 	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "latestMessageId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint64",
-				"name": "latestSourceChainSelector",
-				"type": "uint64"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "latestSender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "latestMessage",
-				"type": "string"
-			}
-		],
-		"name": "MessageReceived",
-		"type": "event"
+		"inputs": [],
+		"name": "EmptySource",
+		"type": "error"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "bytes32",
-				"name": "messageId",
+				"name": "requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes",
+				"name": "response",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "err",
+				"type": "bytes"
+			}
+		],
+		"name": "handleOracleFulfillment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "NoInlineSecrets",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "OnlyRouterCanFulfill",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "requestId",
 				"type": "bytes32"
 			}
 		],
-		"name": "MessageSent",
-		"type": "event"
+		"name": "UnexpectedRequestID",
+		"type": "error"
 	},
 	{
 		"anonymous": false,
@@ -108,164 +104,84 @@ export const senderAbi = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "acceptOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "id",
+				"type": "bytes32"
 			}
 		],
-		"name": "bags",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
+		"name": "RequestFulfilled",
+		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "uint256[]",
-				"name": "randomness",
-				"type": "uint256[]"
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "id",
+				"type": "bytes32"
 			}
 		],
-		"name": "fulfillRandomness",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "RequestSent",
+		"type": "event"
 	},
 	{
+		"anonymous": false,
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "nameAndAmounts",
-		"outputs": [
+				"indexed": true,
+				"internalType": "bytes32",
+				"name": "requestId",
+				"type": "bytes32"
+			},
 			{
+				"indexed": false,
 				"internalType": "string",
-				"name": "name",
+				"name": "word",
 				"type": "string"
 			},
 			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "response",
+				"type": "bytes"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes",
+				"name": "err",
+				"type": "bytes"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
+		"name": "Response",
+		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "owner",
+		"inputs": [
+			{
+				"internalType": "uint64",
+				"name": "subscriptionId",
+				"type": "uint64"
+			},
+			{
+				"internalType": "string[]",
+				"name": "args",
+				"type": "string[]"
+			}
+		],
+		"name": "sendRequest",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				"internalType": "bytes32",
+				"name": "requestId",
+				"type": "bytes32"
 			}
 		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "index_1",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "index_2",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "index_3",
-				"type": "uint256"
-			}
-		],
-		"name": "pickBags",
-		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "requestVRF",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			}
-		],
-		"name": "send",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "vrfAddr",
-				"type": "address"
-			}
-		],
-		"name": "setVRF",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "size",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "entropy",
-				"type": "uint256[]"
-			}
-		],
-		"name": "shuffle",
-		"outputs": [
-			{
-				"internalType": "uint256[5]",
-				"name": "",
-				"type": "uint256[5]"
-			}
-		],
-		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -282,305 +198,6 @@ export const senderAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			}
-		],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
-			}
-		],
-		"name": "withdrawToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
-	}
-]
-
-export const receiverAbi = [
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "router",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "target",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "value",
-				"type": "uint256"
-			}
-		],
-		"name": "FailedToWithdrawEth",
-		"type": "error"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "router",
-				"type": "address"
-			}
-		],
-		"name": "InvalidRouter",
-		"type": "error"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"internalType": "bytes32",
-				"name": "latestMessageId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint64",
-				"name": "latestSourceChainSelector",
-				"type": "uint64"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "latestSender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "string",
-				"name": "latestMessage",
-				"type": "string"
-			}
-		],
-		"name": "MessageReceived",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferRequested",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"inputs": [],
-		"name": "acceptOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "bytes32",
-						"name": "messageId",
-						"type": "bytes32"
-					},
-					{
-						"internalType": "uint64",
-						"name": "sourceChainSelector",
-						"type": "uint64"
-					},
-					{
-						"internalType": "bytes",
-						"name": "sender",
-						"type": "bytes"
-					},
-					{
-						"internalType": "bytes",
-						"name": "data",
-						"type": "bytes"
-					},
-					{
-						"components": [
-							{
-								"internalType": "address",
-								"name": "token",
-								"type": "address"
-							},
-							{
-								"internalType": "uint256",
-								"name": "amount",
-								"type": "uint256"
-							}
-						],
-						"internalType": "struct Client.EVMTokenAmount[]",
-						"name": "destTokenAmounts",
-						"type": "tuple[]"
-					}
-				],
-				"internalType": "struct Client.Any2EVMMessage",
-				"name": "message",
-				"type": "tuple"
-			}
-		],
-		"name": "ccipReceive",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getAllNameAndAmounts",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct MessageReceiver.nameAndAmount[]",
-				"name": "",
-				"type": "tuple[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getLatestMessageDetails",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "uint64",
-				"name": "",
-				"type": "uint64"
-			},
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "getRouter",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "nameAndAmounts",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "owner",
 		"outputs": [
@@ -594,71 +211,58 @@ export const receiverAbi = [
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bytes4",
-				"name": "interfaceId",
-				"type": "bytes4"
-			}
-		],
-		"name": "supportsInterface",
+		"inputs": [],
+		"name": "s_lastError",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "bytes",
 				"name": "",
-				"type": "bool"
+				"type": "bytes"
 			}
 		],
-		"stateMutability": "pure",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "s_lastRequestId",
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
+				"internalType": "bytes32",
+				"name": "",
+				"type": "bytes32"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "s_lastResponse",
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
 			}
 		],
-		"name": "withdraw",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "word",
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "beneficiary",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "token",
-				"type": "address"
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
-		"name": "withdrawToken",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
 
-export const contractAddress = {
-	'43113':'0x038c4337ab55bdD0EA1e7B2Efa115ce7978db119', //fuji
-	'11155111':'0x9292Aa054CBC66fF61213B355D32685d91f54aa6' //sepolia
-}
+export const contractAddress = '0x0e9E663660eD2037354a2e957EDD87794601B334'
+export const subscriptionId = '499'

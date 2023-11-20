@@ -1,4 +1,4 @@
-import { CustomButton } from "./CustomButton.jsx";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import styles from "../../styles/Navbar.module.css";
 export default function Navbar() {
 	return (
@@ -10,7 +10,7 @@ export default function Navbar() {
 					onClick={() => document.documentElement.requestFullscreen()}
 				></img>
 			</a>
-			<CustomButton></CustomButton>
+            <ConnectButton style={{fontWeight:'200'}}></ConnectButton>
 		</nav>
 	);
 }

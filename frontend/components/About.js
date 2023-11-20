@@ -36,12 +36,12 @@ const About = () => {
               </div>
             </li>
             <li className={styles.list}>
-              2. Enter the repo URL for the creator you want to sponsor
+              2. On load, the game will automatically fetch a word through chainlink functions
             </li>
             <li className={styles.list}>3. Define the metric by which you will donate (Stars or Forks)</li>
             <li className={styles.list}>4. Enter the threshold number</li>
             <li className={styles.list}>
-              5. Enter the amount of MATIC to donate based on your defined threadhold
+              5. Reset word to reinitiate a call through chainlink functions to reset the board and get a new word through random words api
             </li>
           </ol>
         </div>
