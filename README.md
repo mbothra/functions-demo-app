@@ -1,4 +1,4 @@
-# Pokémon Battle SmartContract App with Chainlink Functions
+# WODL SmartContract App with Chainlink Functions
 
 Leverage the power of Chainlink Functions to battle Pokémon on the blockchain. This application allows users to select two Pokémon and initiate a battle via smart contracts.
 
@@ -31,7 +31,7 @@ To showcase the integration of Chainlink Functions in a gaming scenario where Po
 1. **Clone the Repository**
 
     ```bash
-    git clone https://github.com/[your-github-username]/pokemon-battle-smartcontract.git
+    git clone https://github.com/mbothra/functions-demo-app
     cd frontend
     ```
 
