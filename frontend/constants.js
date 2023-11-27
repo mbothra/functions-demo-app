@@ -141,7 +141,7 @@ export const abi = [
 			{
 				"indexed": false,
 				"internalType": "string",
-				"name": "word",
+				"name": "character",
 				"type": "string"
 			},
 			{
@@ -199,6 +199,19 @@ export const abi = [
 	},
 	{
 		"inputs": [],
+		"name": "character",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
@@ -248,21 +261,8 @@ export const abi = [
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "word",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
 
-export const contractAddress = '0x242947b9A082699f2d91d734E3AB6d8603933379'
+export const contractAddress = '0x794987ACFf83f491A9866A70a476F0eC4Cc33c7d'
 export const subscriptionId = '499'

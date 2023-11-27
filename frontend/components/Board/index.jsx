@@ -3,6 +3,18 @@ import Box from "../Box";
 import words from "../../words";
 import {getRandomWord} from '../WordsAPI/wordsApi' 
 import { useSigner } from "wagmi";
+import TransactionModal from '../TransactionModal'; // Adjust the import path as needed
+import axios from 'axios';
+
+const checkDictionary = async (word) => {
+  try {
+    const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    return response.data.length > 0; // Returns true if the word exists
+  } catch (error) {
+    console.error("Error checking dictionary", error);
+    return false;
+  }
+};
 
 const c =
   words[Math.floor(Math.random() * words.length - 1)].toUpperCase();
@@ -14,7 +26,7 @@ let defaultLetters = [];
   defaultLetters[i] = "";
 });
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 6; i++) {
   defaulBoard.push([]);
   for (let j = 0; j < 5; j++) {
     defaulBoard[i].push(["", ""]);
@@ -23,7 +35,6 @@ for (let i = 0; i < 5; i++) {
 
 function Board(props) {
   const { data: signer } = useSigner();
-  console.log("getRandomWord()", getRandomWord(signer))
   const [letters, setLetters] = useState(defaultLetters);
   const [board, setBoard] = useState(defaulBoard);
   const [changed, setChanged] = useState(false);
@@ -33,8 +44,9 @@ function Board(props) {
   const [lost, setLost] = useState(false);
   const [message, setMessage] = useState("");
   const [correct, setCorrect] = useState(c);
+  const [modalOpen, setModalOpen] = useState(false);
 
-  useEffect(() => {
+  const handleInput = async() => {
     if (win || lost) {
       console.log("Game ended!");
     } else {
@@ -64,7 +76,8 @@ function Board(props) {
                 for (let i = 0; i < 5; i++) {
                   word += prevBoard[row][i][0];
                 }
-                if (words.includes(word.toLowerCase())) {
+                const isValidWord = checkDictionary(word.toLowerCase());
+                if (isValidWord) {
                   for (let i = 0; i < 5; i++) {
                     if (correct[i] === prevBoard[row][i][0]) {
                       prevBoard[row][i][1] = "C";
@@ -108,6 +121,13 @@ function Board(props) {
         }
       }
     }
+  }
+
+
+  useEffect(() => {
+    if (!win && !lost && props.clicks !== 0) {
+      handleInput();
+    }  
   }, [props.clicks]);
 
   useEffect(() => {
@@ -115,34 +135,46 @@ function Board(props) {
   }, [changed]);
   
   // Initialize default board and letters
-  useEffect(() => {
-    resetGame();
-  }, []);
+  // useEffect(() => {
+  //   resetGame();
+  // }, []);
 
-  const resetGame = () => {
-    let newBoard = [];
-    let newLetters = {};
+  const resetGame = async () => {
+    setModalOpen(true); // Open the modal before starting the API call
 
-    "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
-      newLetters[i] = "";
-    });
-
-    for (let i = 0; i < 5; i++) {
-      newBoard.push([]);
-      for (let j = 0; j < 5; j++) {
-        newBoard[i].push(["", ""]);
+    try {
+      let newCorrectWord = await getRandomWord(signer);
+      if(newCorrectWord == 'Error') {
+        newCorrectWord =words[Math.floor(Math.random() * words.length - 1)].toUpperCase()
       }
+
+      setCorrect(newCorrectWord);
+      // Reset the game state
+      let newBoard = [];
+      let newLetters = {};
+      "abcdefghijklmnopqrstuvwxyz".split("").forEach((i) => {
+        newLetters[i] = "";
+      });
+      for (let i = 0; i < 6; i++) {
+        newBoard.push([]);
+        for (let j = 0; j < 5; j++) {
+          newBoard[i].push(["", ""]);
+        }
+      }
+      setBoard(newBoard);
+      setLetters(newLetters);
+      setRow(0);
+      setCol(0);
+      setWin(false);
+      setLost(false);
+      setMessage("");
+    } catch (error) {
+      console.error("Failed to reset game", error);
     }
 
-    setBoard(newBoard);
-    setLetters(newLetters);
-    setRow(0);
-    setCol(0);
-    setWin(false);
-    setLost(false);
-    setMessage("");
-    setCorrect(getRandomWord());
+    setModalOpen(false); // Close the modal after the API call is complete
   };
+
 
   const containerStyles = {
     padding: '20px 40px', // equivalent to px-10 py-5
@@ -167,7 +199,32 @@ function Board(props) {
     color: 'white' // equivalent to dark:text-white (assuming you are using a dark theme)
   };
 
-
+  const buttonStyles = {
+    backgroundColor: '#4CAF50', // Green background
+    color: 'white', // White text
+    padding: '10px 20px', // Padding around the text
+    border: 'none', // No border
+    borderRadius: '5px', // Rounded corners
+    cursor: 'pointer', // Cursor changes to a hand icon when hovered over
+    fontSize: '16px', // Font size
+    margin: '20px 0 0 0px', // Margin above and below the button
+    transition: 'background-color 0.3s', // Smooth transition for the background color
+    fontFamily: 'circular',
+    textAlign: 'center',
+    display: 'flex', // Enables Flexbox
+    flexDirection: 'column', // Stacks children vertically
+    alignItems: 'center', // Centers children horizontally in the container
+    justifyContent: 'center', // Centers children vertically in the container
+  
+  };
+  function handleMouseOver(e) {
+    e.target.style.backgroundColor = '#45a049'; // Darker shade of green when hovered
+  }
+  
+  function handleMouseOut(e) {
+    e.target.style.backgroundColor = '#4CAF50'; // Original green color when not hovered
+  }
+  
   return (
     <div style={containerStyles}>
       {board.map((rowArr, key) => {
@@ -179,10 +236,18 @@ function Board(props) {
           </div>
         );
       })}
-      <button onClick={resetGame}>Reset Word</button>
+    <button 
+      onClick={resetGame} 
+      style={buttonStyles} 
+      onMouseOver={handleMouseOver} 
+      onMouseOut={handleMouseOut}
+    >
+      Set Word
+    </button>
       <div style={messageStyles}>
         {lost || win ? message : ""}
       </div>
+      <TransactionModal open={modalOpen} message="Calling random-word-api using Chainlink Functions" />
     </div>
   );
 }

@@ -12,36 +12,43 @@ function hexToString(hex) {
   }
   
 
-export const getRandomWord = async (signer) => {
+  export const getRandomWord = async (signer) => {
     try {
-        const contract = new Contract(contractAddress, abi, signer)
-        const subId = ethers.BigNumber.from(subscriptionId); // Make sure it's a uint64
-        const tx = await contract.sendRequest(
-            subId,
-            []
-          );
-        const receipt = await tx.wait();
+        if (!signer) {
+            return "Error";
+        }
+
+        const contract = new Contract(contractAddress, abi, signer);
+        const subId = ethers.BigNumber.from(subscriptionId);
+        const tx = await contract.sendRequest(subId, []);
+        await tx.wait();
+
         const requestId = await contract.s_lastRequestId();
+
         const waitForDataReceivedEvent = new Promise((resolve, reject) => {
             contract.on("Response", (eventRequestId, word, response, error) => {
-              if (eventRequestId === requestId) { // Match the requestId
-                console.log("Request ID:", eventRequestId);
-                console.log("Response:", response);
-                console.log("Error:", error);
-                // Handle the response as needed
-                // ...
-                const decodedResponse = hexToString(response)
-    
-                // Resolve the promise with the event data
-                resolve(decodedResponse);
-    
-              }
+                if (eventRequestId === requestId) {
+                    const decodedResponse = hexToString(response);
+                    resolve(decodedResponse);
+                }
             });
-          });
-        const eventData = await waitForDataReceivedEvent;
-        return eventData
+        });
+
+        const timeoutPromise = new Promise((resolve) => {
+            setTimeout(() => resolve("Error"), 60000); // 60 seconds timeout
+        });
+
+        // Race between our event and the timeout
+        const eventData = await Promise.race([waitForDataReceivedEvent, timeoutPromise]);
+        
+        if (eventData === "Error") {
+            console.log("Event listener timed out.");
+            return "Error";
+        }
+
+        return eventData;
     } catch (error) {
-      console.error("Failed to fetch Word", error);
+        console.error("Failed to fetch Word", error);
+        return "Error";
     }
-  };
-  
+};
